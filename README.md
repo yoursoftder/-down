@@ -5,7 +5,7 @@ https://github.com/yoursoftder/-down/releases/tag/1.0 </p>
 <p>其他加速方法https://www.zhihu.com/question/276143842</p>
 <p>为了方便下载测试，免去翻墙和限速的困难，开通github下载通道。</p>
 由于不是人民币玩家，所以空间有限只能上传500M附件，请见谅。
-使用说明都在安装包里面有，不明白或者有问题的可以尝试联系我的电报 <p>https://t.me/rwxsoft/</p> 给予最大技术的支持
+使用说明都在安装包里面有，不明白或者有问题的可以尝试联系我的电报 <p>https://t.me/rwxsoft/</p>【如果无法打开请下载 https://hub.fastgit.org/getlantern/lantern 获取网络优化工具】 给予最大技术的支持
 请记下电报地址，因为这里不能确保永久可以下载
 <p>1 加入了是否显示日志的开关</p>
 <p>2 速度优化，和部分影响性能的bug在不断修复中</p>
