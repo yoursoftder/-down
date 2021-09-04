@@ -9,11 +9,13 @@ https://github.com/yoursoftder/-down/releases/</p>
 <p>
 <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.org/getlantern/lantern" target="_blank">【如果无法打开请下载 
  获取网络优化工具】</a>
-		<p>
+ 
      
-      <p><a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.org/bannedbook/fanqiang/wiki/Chrome一键翻墙包" target="_blank">【获取网络优化工具2】</a>
-		</p>
-        <p><a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.org/search?q=fanqiang" target="_blank">【其他工具请自己选择】</a</p>
+   <p>
+ <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.org/bannedbook/fanqiang/wiki/Chrome一键翻墙包" target="_blank">【获取网络优化工具2】</a>
+	 
+       
+<a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.org/search?q=fanqiang" target="_blank">【其他工具请自己选择】</a></p>   
 请记下电报地址，因为这里不能确保永久可以下载
 <p>1 加入了是否显示日志的开关</p>
 <p>2 速度优化，和部分影响性能的bug在不断修复中</p>
