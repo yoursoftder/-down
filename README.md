@@ -1,7 +1,7 @@
 # -down
 模拟文件下载地址<p>
-https://github.com/yoursoftder/-down/releases/tag/2.0 </p>
-<p>国内加速通道https://hub.fastgit.org/yoursoftder/-down/releases/tag/2.0</p>
+https://github.com/yoursoftder/-down/releases/</p>
+<p>国内加速通道https://hub.fastgit.org/yoursoftder/-down/releases/</p>
 <p>其他加速方法https://www.zhihu.com/question/276143842</p>
 <p>为了方便下载测试，免去翻墙和限速的困难，开通github下载通道。</p>
 由于不是人民币玩家，所以空间有限只能上传500M附件，请见谅。
