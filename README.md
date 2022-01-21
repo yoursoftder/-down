@@ -8,8 +8,7 @@
 #### 为了方便下载测试，免去翻墙和限速的困难，开通github下载通道。
 
 #### 使用说明都在安装包里面有，不明白或者有问题的可以尝试联系我的电报,给予最大技术的支持  <b style='color:red'>[联系电报地址](https://t.me/rwxsoft/ "联系我")</b>
- #####  <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.org/getlantern/lantern" target="_blank">【如果无法打开请下载 
- 获取网络优化工具】</a>
+ #####  <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.org/getlantern/lantern" target="_blank">【如果无法打开请下载  获取网络优化工具】</a>
  
      
    <p>
