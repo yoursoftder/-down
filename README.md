@@ -1,13 +1,15 @@
 # -down
-模拟文件下载地址<p>
-https://github.com/yoursoftder/-down/releases/</p>
-<p>国内加速通道https://hub.fastgit.org/yoursoftder/-down/releases/</p>
-<p>其他加速方法https://www.zhihu.com/question/276143842</p>
-<p>为了方便下载测试，免去翻墙和限速的困难，开通github下载通道。</p>
-由于不是人民币玩家，所以空间有限只能上传500M附件，请见谅。
-使用说明都在安装包里面有，不明白或者有问题的可以尝试联系我的电报,给予最大技术的支持 <p>https://t.me/rwxsoft/</p>
-<p>
-<a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.org/getlantern/lantern" target="_blank">【如果无法打开请下载 
+
+
+[模拟文件下载地址](https://github.com/yoursoftder/-down/releases/ "正常地址可能需要检查网络环境才能正常访问")
+[国内加速通道](https://hub.fastgit.org/yoursoftder/-down/releases/ "大陆加速地址")
+ [其他加速方法](https://www.zhihu.com/question/276143842 "上GITHUB的技巧")
+
+####为了方便下载测试，免去翻墙和限速的困难，开通github下载通道。<
+
+####使用说明都在安装包里面有，不明白或者有问题的可以尝试联系我的电报,给予最大技术的支持  [联系电报地址](https://t.me/rwxsoft/ "联系我")
+ 
+#####<a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.org/getlantern/lantern" target="_blank">【如果无法打开请下载 
  获取网络优化工具】</a>
  
      
