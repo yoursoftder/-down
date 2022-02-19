@@ -15,8 +15,7 @@
    <p>
  <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/bannedbook/fanqiang/wiki/Chrome一键翻墙包" target="_blank">【获取网络优化工具2】</a>
 	
-        </p>  
-	<p>
+       
 <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/search?q=fanqiang" 
    target="_blank">【其他工具请自己选择】</a> </p>
 #### 请记下电报地址，因为这里不能确保永久可以下载
