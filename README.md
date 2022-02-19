@@ -12,11 +12,11 @@
   
  #####<a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/getlantern/lantern" target="_blank">【获取网络优化工具B】</a> 
      
- #####  <p> <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/bannedbook/fanqiang/wiki/Chrome一键翻墙包" target="_blank">【获取网络优化工具2】</a>
+ #####   <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/bannedbook/fanqiang/wiki/Chrome一键翻墙包" target="_blank">【获取网络优化工具2】</a>
 	
        
 #####<a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/search?q=fanqiang" 
-   target="_blank">【其他工具请自己选择】</a> </p>
+   target="_blank">【其他工具请自己选择】</a> 
 #### 请记下电报地址，因为这里不能确保永久可以下载
 ####  新增功能请订阅 [电报地址查看](https://t.me/rwxsoft/ "关注我")
 #### 速度优化，和部分影响性能的bug在不断修复中 
