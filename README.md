@@ -9,14 +9,13 @@
 
 #### 使用说明都在安装包里面有，不明白或者有问题的可以尝试联系我的电报,给予最大技术的支持  <b style='color:red'>[联系电报地址](https://t.me/rwxsoft/ "联系我")</b>
  #####  <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://git.io/afq" target="_blank">【如果无法打开请下载  获取网络优化工具】</a>
- </b>
- <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/getlantern/lantern" target="_blank">【获取网络优化工具B】</a> 
-    </b> 
-   <p>
- <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/bannedbook/fanqiang/wiki/Chrome一键翻墙包" target="_blank">【获取网络优化工具2】</a>
+  
+ #####<a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/getlantern/lantern" target="_blank">【获取网络优化工具B】</a> 
+     
+ #####  <p> <a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/bannedbook/fanqiang/wiki/Chrome一键翻墙包" target="_blank">【获取网络优化工具2】</a>
 	
        
-<a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/search?q=fanqiang" 
+#####<a style="border-radius:10px;padding:10px 38px;color:#151615;border-style:solid;text-decoration:none;" href="https://hub.fastgit.xyz/search?q=fanqiang" 
    target="_blank">【其他工具请自己选择】</a> </p>
 #### 请记下电报地址，因为这里不能确保永久可以下载
 ####  新增功能请订阅 [电报地址查看](https://t.me/rwxsoft/ "关注我")
