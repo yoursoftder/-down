@@ -192,6 +192,7 @@ func Overwrite(filePath string) {
 
 	//Flush将缓存的文件真正写入到文件中
 	write.Flush()
+	file.Close()
 }
 
 //   log.Println("Hello Davis!") // log 还是可以作为输出的前缀
