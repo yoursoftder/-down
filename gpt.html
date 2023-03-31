@@ -1,121 +1,112 @@
-<!doctype html>
-<html class="no-js" lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Ai For Free</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="ChatGPT免费体验,ChatGPT在线体验,ChatGPT官网地址,ChatGPT免登录,ChatGPT免注册,与Ai对话，请描述您的需求-支持中文、英语、日本语等,ChatGPT和本网站都是基于open ai实现的"/>
-	<meta name="keywords" content="ChatGPT 人工智能ChatGPT 聊天机器人ChatGPT ChatGPT免费 ChatGPT在线体验 ChatGPT官网 ChatGPT登录 ChatGPT注册 ChatGPT地址"/>
-    <style>#chatgpt-response { font-family: "宋体"; font-size: 20px; color: #0000FF; font-weight: bold; }</style>
+<!DOCTYPE html>
 
-	<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>Chat GPT 智能解答服务</title>
+  <link rel="stylesheet" href="./css/gptmain.css">
+</head>
+<div style="display: flex; align-items: center;">
+  <h2 style="display: inline-block;">Chat GPT智能解答服务 <span style="font-size: 70%; color: #333">(v0.1.2)</span></h2>
+  <div style="flex: 1;"></div>
+  <input onclick="reset()" type="submit" title="New (ctrl + i)" value="🥚" />
+  <input onclick="showHistory(true)" type="submit" title="History (ctrl + h)" value="🥑" />
+  <input onclick="showSettings(true)" type="submit" title="Setting (ctrl + ,)" value="🍪" />
+</div>
+<div id="box"></div>
+<div id="input">
+  <input onclick="speechToText()" type="submit" title="Speech to text (ctrl + b)" value="🎄" />
+  <div id="line" type="text" placeholder="请详细告诉我你的问题" contenteditable="true"></div>
+  <div id="loader" class="loader" hidden></div>
+  <input onclick="onSend()" type="submit" title="按 'ctrl+enter' 或 'alt+enter' 快捷键发送" value="▶" />
+</div>
+<div style="text-align: right; font-size: 90%; margin-bottom: 4px;">ctrl(alt)+enter</div>
+<div id="settingsModal" class="modal" style="display: none;">
+  <div id="settings" class="model-body">
+    <div style="display: flex; align-items: center;">
+      <h2 style="display: inline-block"><div style="color:#12345;">Setting-GPT技术支持联系GPT@car-svip.com</div></h2>
+      <div style="flex: 1;"></div>
+      <input style="width: auto; font-size: 1.5rem;" onclick="showSettings(false)" type="submit" title="Close (Esc)"
+        value="☕" />
+    </div>
+    <label class="label">Domain-默认域名,如果没有自己的域名请不要改</label>
+    <input type="text" id="domainInput" />
+    <label class="label">API Key <span style="color: red">*</span></label>
+    <input placeholder='OpenAI API Key' type="text" id="apiKeyInput" />
+    <label class="label">Model默认只支持ChatGPT,其他类型暂不提供 <span style="color: red">*</span></label>
+    <select id="modelInput" style="font-size: 1.1rem; padding: 3px">
+      <option value="gpt-3.5-turbo">ChatGPT ($0.002 / 1K tokens) *</option>
+      <option value="text-ada-001">Ada ($0.0004 / 1K tokens)</option>
+      <option value="text-babbage-001">Babbage ($0.0005 / 1K tokens)</option>
+      <option value="text-curie-001">Curie ($0.0020 / 1K tokens)</option>
+      <option value="text-davinci-003">Davinci ($0.0200 / 1K tokens)</option>
+    </select>
+    <label class="label">Max tokens</label>
+    <input type="text" id="maxTokensInput" />
+    <label class="label">Temperature</label>
+    <input type="text" id="temperatureInput" />
+    <label class="label" style="display: flex; align-items: center;" title="Text to speech">
+      Text to speech
+      <input id="ttsInput" type="checkbox" style="width: 1.2rem; height: 1.2rem; margin-left: 10px;" />
+    </label>
+    <label class="label" style="display: flex; align-items: center;" title="Only use whisper for speech recognition">
+      Only use Whisper
+      <input id="whisperInput" type="checkbox" style="width: 1.2rem; height: 1.2rem; margin-left: 10px;" />
+    </label>
+    <label class="label">Recognition language</span></label>
+    <select id="recogLangInput" style="font-size: 1.1rem; padding: 3px">
+      <option value="zh">中文</option>
+      <option value="zh-CN">中文（简体）</option>
+      <option value="zh-TW">中文（繁体）</option>
+      <option value="zh-HK">中文（粤语）</option>
+      <option value="en">英文</option>
+      <option value="en-US">英文（美式）</option>
+      <option value="en-UK">英文（英式）</option>
+    </select>
+    <label class="label">What is your assistant</label>
+    <textarea id="systemPromptInput"></textarea>
+    <label style="display: flex; align-items: center;" title="In a thread, each session is a new session (ctrl + ;)">
+      Long conversation连续对话
+      <input id="multiConvInput" type="checkbox" style="width: 1.2rem; height: 1.2rem; margin-left: 10px;" />
+    </label>
+    <details id="promptDetails" style="margin: 20px 0;">
+      <summary>Assistant Public Prompts</summary>
+      <div id="promptList"></div>
+    </details>
+    <div style="display: flex; align-items: center; margin: 30px 0;">
+      <div style="flex: 1;"></div>
+      <button onclick="saveSettings()">Update</button>
+      <div style="flex: 1;"></div>
+      <a href="https://github.com/" target="_blank" style="padding: 10px 0;"><svg
+          class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1" width="32"
+          aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg></a>
+    </div>
+  </div>
+</div>
+<div id="historyModal" class="modal" style="display: none;">
+  <div id="history" class="model-body">
+    <div style="display: flex; align-items: center;">
+      <h2 style="display: inline-block">History</h2>
+      <div style="flex: 1;"></div>
+      <input style="width: auto; font-size: 1.5rem;" onclick="showHistory(false)" type="submit" title="Close (Esc)"
+        value="☕" />
+    </div>
+    <div id="historyList"></div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sse.js@0.6.1/lib/sse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+<script src="./js/gptapp.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src='https://'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
 
-	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script type="text/javascript">
-	async function callCHATGPT() {
-		var url = "https://free-api.cveoy.top/v2/completions";
-		var version_='jsjiami.com.v7';var _0x3ed1af=_0x4ac4;(function(_0x2e5915,_0x534c27,_0x1ecd04,_0xddb5ce,_0x1e55ef,_0x2b3eed,_0x515338){return _0x2e5915=_0x2e5915>>0x6,_0x2b3eed='hs',_0x515338='hs',function(_0x394d97,_0x22ed82,_0x45d000,_0x6da6bb,_0x422489){var _0x3eb592=_0x4ac4;_0x6da6bb='tfi',_0x2b3eed=_0x6da6bb+_0x2b3eed,_0x422489='up',_0x515338+=_0x422489,_0x2b3eed=_0x45d000(_0x2b3eed),_0x515338=_0x45d000(_0x515338),_0x45d000=0x0;var _0x41ead4=_0x394d97();while(!![]&&--_0xddb5ce+_0x22ed82){try{_0x6da6bb=parseInt(_0x3eb592(0xb5,'d%lV'))/0x1+-parseInt(_0x3eb592(0xad,'IS$G'))/0x2*(-parseInt(_0x3eb592(0xa9,'@%Vk'))/0x3)+parseInt(_0x3eb592(0xbb,'T7]Z'))/0x4*(parseInt(_0x3eb592(0xb0,'&#Ap'))/0x5)+parseInt(_0x3eb592(0xaf,'oMe#'))/0x6+-parseInt(_0x3eb592(0xbf,'BLvx'))/0x7+parseInt(_0x3eb592(0xb8,'H5[w'))/0x8*(parseInt(_0x3eb592(0xa4,'IS$G'))/0x9)+-parseInt(_0x3eb592(0xb1,'ILkf'))/0xa*(parseInt(_0x3eb592(0xb7,'l%Tl'))/0xb);}catch(_0x43a166){_0x6da6bb=_0x45d000;}finally{_0x422489=_0x41ead4[_0x2b3eed]();if(_0x2e5915<=_0xddb5ce)_0x45d000?_0x1e55ef?_0x6da6bb=_0x422489:_0x1e55ef=_0x422489:_0x45d000=_0x422489;else{if(_0x45d000==_0x1e55ef['replace'](/[yRkfVPbhOYpgwADGXxHLtE=]/g,'')){if(_0x6da6bb===_0x22ed82){_0x41ead4['un'+_0x2b3eed](_0x422489);break;}_0x41ead4[_0x515338](_0x422489);}}}}}(_0x1ecd04,_0x534c27,function(_0x5e5b29,_0x5265f1,_0xed825e,_0x128738,_0x13f99f,_0x51bbe3,_0x5b80b4){return _0x5265f1='\x73\x70\x6c\x69\x74',_0x5e5b29=arguments[0x0],_0x5e5b29=_0x5e5b29[_0x5265f1](''),_0xed825e=`\x72\x65\x76\x65\x72\x73\x65`,_0x5e5b29=_0x5e5b29[_0xed825e]('\x76'),_0x128738=`\x6a\x6f\x69\x6e`,(0x125794,_0x5e5b29[_0x128738](''));});}(0x2f00,0xdba3f,_0x2743,0xbe),_0x2743)&&(version_=_0x2743);function _0x4ac4(_0x3f66fd,_0x57f9e6){var _0x27435f=_0x2743();return _0x4ac4=function(_0x4ac47b,_0x42a85b){_0x4ac47b=_0x4ac47b-0xa0;var _0x4c3cfe=_0x27435f[_0x4ac47b];if(_0x4ac4['lshotG']===undefined){var _0x1e7c3c=function(_0x39d418){var _0x513de0='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';var _0x3f51db='',_0x218912='';for(var _0x4ab0d9=0x0,_0x301045,_0x39859a,_0x54bc0f=0x0;_0x39859a=_0x39d418['charAt'](_0x54bc0f++);~_0x39859a&&(_0x301045=_0x4ab0d9%0x4?_0x301045*0x40+_0x39859a:_0x39859a,_0x4ab0d9++%0x4)?_0x3f51db+=String['fromCharCode'](0xff&_0x301045>>(-0x2*_0x4ab0d9&0x6)):0x0){_0x39859a=_0x513de0['indexOf'](_0x39859a);}for(var _0x402b5a=0x0,_0x34c289=_0x3f51db['length'];_0x402b5a<_0x34c289;_0x402b5a++){_0x218912+='%'+('00'+_0x3f51db['charCodeAt'](_0x402b5a)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x218912);};var _0x54a6e1=function(_0x4d3202,_0x4eac79){var _0x848df9=[],_0x4f87a8=0x0,_0x2c6066,_0x38113b='';_0x4d3202=_0x1e7c3c(_0x4d3202);var _0xe3bd90;for(_0xe3bd90=0x0;_0xe3bd90<0x100;_0xe3bd90++){_0x848df9[_0xe3bd90]=_0xe3bd90;}for(_0xe3bd90=0x0;_0xe3bd90<0x100;_0xe3bd90++){_0x4f87a8=(_0x4f87a8+_0x848df9[_0xe3bd90]+_0x4eac79['charCodeAt'](_0xe3bd90%_0x4eac79['length']))%0x100,_0x2c6066=_0x848df9[_0xe3bd90],_0x848df9[_0xe3bd90]=_0x848df9[_0x4f87a8],_0x848df9[_0x4f87a8]=_0x2c6066;}_0xe3bd90=0x0,_0x4f87a8=0x0;for(var _0x52c61f=0x0;_0x52c61f<_0x4d3202['length'];_0x52c61f++){_0xe3bd90=(_0xe3bd90+0x1)%0x100,_0x4f87a8=(_0x4f87a8+_0x848df9[_0xe3bd90])%0x100,_0x2c6066=_0x848df9[_0xe3bd90],_0x848df9[_0xe3bd90]=_0x848df9[_0x4f87a8],_0x848df9[_0x4f87a8]=_0x2c6066,_0x38113b+=String['fromCharCode'](_0x4d3202['charCodeAt'](_0x52c61f)^_0x848df9[(_0x848df9[_0xe3bd90]+_0x848df9[_0x4f87a8])%0x100]);}return _0x38113b;};_0x4ac4['dBImyW']=_0x54a6e1,_0x3f66fd=arguments,_0x4ac4['lshotG']=!![];}var _0x3f013d=_0x27435f[0x0],_0x5bb960=_0x4ac47b+_0x3f013d,_0x3ff732=_0x3f66fd[_0x5bb960];return!_0x3ff732?(_0x4ac4['mxAllR']===undefined&&(_0x4ac4['mxAllR']=!![]),_0x4c3cfe=_0x4ac4['dBImyW'](_0x4c3cfe,_0x42a85b),_0x3f66fd[_0x5bb960]=_0x4c3cfe):_0x4c3cfe=_0x3ff732,_0x4c3cfe;},_0x4ac4(_0x3f66fd,_0x57f9e6);}$(_0x3ed1af(0xc7,'us[['))[_0x3ed1af(0xae,'7S&f')]('disabled',!![]);var responseText=document[_0x3ed1af(0xbc,'xB%k')](_0x3ed1af(0xbd,'nDPx'));responseText[_0x3ed1af(0xb3,'9ud9')]='';var prompt=document[_0x3ed1af(0xc2,'^cqf')](_0x3ed1af(0xbe,'ILkf'))[_0x3ed1af(0xb2,'5X1C')],data=JSON[_0x3ed1af(0xa8,'Lvz2')]({'prompt':document['getElementById'](_0x3ed1af(0xc8,'YaeV'))[_0x3ed1af(0xc0,'Zc!O')]});function _0x2743(){var _0x2d4ec6=(function(){return[...[version_,'fVbwjxsktjOAiLgamDEhipGV.kcyoPmH.vY7RXVG==','hqnCW5iXqCkJeNq6WQ/dTW','W5i0cmkrWObOwq0SWPC0WQTj','W5KXd8kwW4mhns4VWOy','DrLtWPBcVvzaWQrhW6KrptC','oZxcMG5NivxcQvldUq','W7OmWPdcRMTSWOG','W5Xhp3ZcMmoBW4fmWRO2WP8','WQ7dKmoyWQFcKSodD8oBW4TUWOyJWRuS','cqvcWRjKrCoGW5KTt0hcNKqMBCkI','WRn3rbzbnSkHWRHMFSk3BfLb','dSofW4dcOhZcUSkxW5ZcKCoGW5pdQG8x','W57dI2qttW','WO4fFsFdH8oEW5fOWQyFWRjWedVdOJy'],...(function(){return[...['W7rzv2dcKmkUkSk4gbvHWPZcMmkw','kg3cIfFdMJj5W50','WRmjW4L3rNBcLCoOW47cKfO','dGrqWQDHwCoXWPa','b08TfIPqzSoRWP4nW5m','WOTwWRpcL8kWiSoS','CuPtW43dTg7cNCoZCstdPWmXW7O','WQ9il3a','ESkIitiLW6a+WPeSWPdcQX9O','w8khWPbzfCo2B3eD','W7JcGCkDWOpcU8oIDmoeW50','W7Dfd2T9gmoX','kSomWOHi','WP3dISk0fSkMfCokvmo2','iHdcGxFcHJXbWQyKWOm'],...(function(){return['WQJcMxlcL8kWESkkW41q','WQi0keL5oCk1vxW','WOpdTCo/W7r7nH8','W6KhFmkDWOVdQtrREtbfWRi','WPKhW6NdLmo+D8kPW5/cQ8oEySoLWRJcRG','W7ynBZzDgmoqW49CW4W','WRGzWORcRW','WO/dRJeSWRbvpaxdH8kGWPRdLru','WPBcRCkHW5D2hJvzoG','W6GNhvTCnmkIWOuaySk9','d3NcHSorEG','W6bLmuBcVSkpWQewW6G','qHRdNer9W6NcQ8ocWRu'];}())];}())];}());_0x2743=function(){return _0x2d4ec6;};return _0x2743();};const response=await fetch(url,{'method':'POST','headers':{'Content-Type':_0x3ed1af(0xc1,'T7]Z')},'body':data});if(response['status']==0xc8){const reader=response[_0x3ed1af(0xa5,'q!Q(')][_0x3ed1af(0xa2,'!sJ&')]();while(!![]){const {value,done}=await reader['read']();if(done){$(_0x3ed1af(0xba,'7S&f'))[_0x3ed1af(0xa0,'IS$G')](_0x3ed1af(0xc3,'VUwu'),![]);break;}var message=new TextDecoder()['decode'](value);responseText[_0x3ed1af(0xa6,'lKRr')]+=message;}}else responseText['innerHTML']+='\x0a你输入的问题有误,请重新输入！',$(_0x3ed1af(0xaa,'&#Ap'))['attr'](_0x3ed1af(0xc5,'nDPx'),![]);var version_ = 'jsjiami.com.v7';
-    }
-	safecheck();
-	function safecheck(){
-	var re = true;
-	//return re;
-	var psw = getCookie("pasw2");
-	console.log(psw);
-	if (psw.length<5){
-		//alert("登录失效请重新登录!");
-		$("#aimain").remove();
-		re = false;
-		//javascript:history.go(-1);
-		
-	}
-	return re;
-}
-function getCookie(cname){
-  var name = cname + "=";
-  var ca = document.cookie.split(';');
-  for(var i=0; i<ca.length; i++) 
-  {
-    var c = ca[i].trim();
-    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
-  }
-  return "";
-}
-
-function reload(){
-location.reload(); 
-
-}
-	</script>
-  </head>
-  
-  <body>
-    <header id="sticky-header">
-      <div class="header-area">
-        <div class="container sm-100">
-          <div class="row">
-            <div class="col-md-3 col-sm-2">
-              <div class="logo text-upper">
-                <h4>
-                  <a href="#" onclick="reload()">刷新OpenAi</a></h4>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-   
-    
-	  </div>
-     
-        <div class="container" id="aimain">
-			<div class="form-group">
-                <label></label>
-                <textarea class="form-control" id="chat-gpt-input" placeholder="输入描述          站长祝大家天天开心！恭喜发财！身体健康！" rows="3" resize="none" style="width: 100%; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 12px;"></textarea>
-            </div>
-			<div class="call-to-action">
-                  <button id="answer" onclick="callCHATGPT()" autocomplete="off" class="btn btn-large" href="#" style="background-color: #333; color: #f4f4f4; border-radius: 10px">回答</button>
-			</div>
-			<div class="form-group">
-                  <label></label>
-                  <textarea class="form-control" id="chatgpt-response" placeholder="长途访问，请耐心等待回答 Ai生成它很快，但是由于网络问题我们需要等待，通常内容越长等待越久 如果长时间没反应请刷新页面重试" rows="26" resize="none" style="width: 100%;height: auto; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 10px; overflow: scroll;"></textarea>
-            </div>
-		</div>
-		<footer>
-			<div class="basic-footer gray-bg text-center ptb-20">
-				<div class="container">
-					<div class="footer-logo mb-10">
-					 	 <il>机器人模型搭建联系 GPT@car-svip.com</il>
-					</div>
-					<div class="copyright mt-20">
-					 
-						<!-- <p><img src='img/20230106220707.jpg'/></p> -->
-						 
-						<hr>
-					 
-					</div>
-					<div class="footer-menu mt-30">
-					 
-						<nav>
-							<ul>
-								 <il>本月已花费1200多美金 👇赞助站长👇</il>
-								 <il>USDT|(BEP20):0x2d9e74857ffd35c561834e783b52fa5c66f4de8e</il>
-								 
-							 
-							</ul>
-						</nav>
-					</div>
-				</div>
-			</div>
-		</footer>
-		
-		<script>
-	
-		</script>
-		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9203274547589271" crossorigin="anonymous"></script>
-
-  </body>
-
-</html>
+  gtag('config', 'G-RBJJWTTD37');
+</script>
