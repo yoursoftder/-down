@@ -4,7 +4,7 @@ html {
 
 body {
   min-height: 100%;
-  max-width : 720px;
+  max-width : auto;
   margin    : auto;
   padding   : 0 8px;
   display   : flex;
@@ -143,8 +143,10 @@ button.icon {
 }
 
 .assistant {
-  background-color: bisque;
+  background-color: #ffffff;
   border-radius   : 36px 8px 8px 0;
+    border: 1px solid black;
+
 }
 
 .user {
