@@ -3,24 +3,41 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-  <title>Chat GPT 智能解答服务</title>
+  <title>ChatGPT</title>
   <link rel="stylesheet" href="./css/gptmain.css">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css" rel="stylesheet">
+
 </head>
-<div style="display: flex; align-items: center;">
-  <h2 style="display: inline-block;">Chat GPT智能解答服务 <span style="font-size: 70%; color: #333">(v0.1.2)</span></h2>
+<body onLoad="afterhtmlload()">
+<div id="toptip" style="display: flex; align-items: center;margin-top:">
+  <h2 style="display: inline-block;">GPT<span style="font-size: 70%; color: #333">(v0.1.3)</span></h2>
   <div style="flex: 1;"></div>
+  <input onclick="F5()" type="submit" title="F5" value="🔁" />
   <input onclick="reset()" type="submit" title="New (ctrl + i)" value="🥚" />
   <input onclick="showHistory(true)" type="submit" title="History (ctrl + h)" value="🥑" />
   <input onclick="showSettings(true)" type="submit" title="Setting (ctrl + ,)" value="🍪" />
 </div>
-<div id="box"></div>
-<div id="input">
-  <input onclick="speechToText()" type="submit" title="Speech to text (ctrl + b)" value="🎄" />
+<div id="box" style="margin-;height: 500px;overflow: auto"></div>
+<div id="inputout" style="position:absolute;bottom: 0; top:626px; left: 0;  width: 100%;  height:5px ;">
+<div id="input" style="position: ; top:626px; ">
+
+  <input  id="inputspeck" onclick="speechToText()" type="submit" title="点住不放可拖动/Speech to text (ctrl + b)" value="🎄" />
+
   <div id="line" type="text" placeholder="请详细告诉我你的问题" contenteditable="true"></div>
   <div id="loader" class="loader" hidden></div>
   <input onclick="onSend()" type="submit" title="按 'ctrl+enter' 或 'alt+enter' 快捷键发送" value="▶" />
+
 </div>
-<div style="text-align: right; font-size: 90%; margin-bottom: 4px;">ctrl(alt)+enter</div>
+<div id="siss" style="position: ;text-align: right; font-size: 90%; margin-bottom: 4px;">ctrl(alt)+enter
+<input type="checkbox" id="myCheckbox" onchange="isChecked(this)" title="是否保存消息" checked>
+ <input id="reset2" onclick="reset()" type="submit" title="New (ctrl + i)" value="🥚" />
+ <input onclick="resend()" type="submit" title="resend" value="₨" /> 
+
+
+</div>
+</div>
+
 <div id="settingsModal" class="modal" style="display: none;">
   <div id="settings" class="model-body">
     <div style="display: flex; align-items: center;">
@@ -32,7 +49,7 @@
     <label class="label">Domain-默认域名,如果没有自己的域名请不要改</label>
     <input type="text" id="domainInput" />
     <label class="label">API Key <span style="color: red">*</span></label>
-    <input placeholder='OpenAI API Key' type="text" id="apiKeyInput" />
+    <input placeholder='OpenAI API Key' type="text"  onKeyDown="if (event.keyCode == 13) showdomain();" id="apiKeyInput" />
     <label class="label">Model默认只支持ChatGPT,其他类型暂不提供 <span style="color: red">*</span></label>
     <select id="modelInput" style="font-size: 1.1rem; padding: 3px">
       <option value="gpt-3.5-turbo">ChatGPT ($0.002 / 1K tokens) *</option>
@@ -98,9 +115,10 @@
     <div id="historyList"></div>
   </div>
 </div>
+</body>
 <script src="https://cdn.jsdelivr.net/npm/sse.js@0.6.1/lib/sse.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
-<script src="./js/gptapp.js"></script>
+<script src="./js/gptapp.js?2"></script>
 <!-- Google tag (gtag.js) -->
 <script async src='https://'></script>
 <script>
