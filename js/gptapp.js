@@ -1,9 +1,109 @@
+ 
+document.write("<script type='text/javascript' async src='https://code.jquery.com/jquery-3.7.0.js'><\/script>");
+document.write("<script type='text/javascript' async src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js'><\/script>");
+loadjs('https://cdn.jsdelivr.net/npm/marked/marked.min.js');
+function loadjs(jsurl){
+	var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = jsurl;
+document.head.appendChild(script);
+}
 var ondebug = false;
 var defchaturl="https://sub.rm178.cn";
 var defchaturlendpoint="/api/MainProduct/chat";
 if(!ondebug){
 	domainInput.style.display = 'none';
 }
+const ua = navigator.userAgent;
+const iOS = /iPad|iPhone|iPod/.test(ua);
+ function isMobile() {
+  return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+}
+  
+var inputBox = document.getElementById("line");
+var toptip = document.getElementById("toptip");
+inputBox.addEventListener("click", function() {
+ 
+
+
+});
+
+
+  
+// 获取拖动元素
+var dragElement = document.getElementById("inputout");
+var dragElementico = document.getElementById("inputspeck");
+
+// 记录鼠标按下时的初始位置
+var initialX;
+var initialY;
+
+// 记录拖动元素的初始位置
+var offsetX = 0;
+var offsetY = 0;
+
+// 鼠标按下时的事件处理函数
+function F5() {
+	// var Dt = new Date();var randomstr = ''+Dt.getMonth() + Dt.getDay() + Dt.getHours();
+	  location.replace(window.location.origin+window.location.pathname+'?'+Math.random());
+}
+function afterhtmlload() {
+	 if (isMobile) {
+    var inputOut =dragElement;
+    inputOut.style.top = "10%";
+    toptip.style.marginTop  = "2%";
+	
+  }
+   
+
+  marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false
+   
+});
+}
+function dragStart(event) {
+  initialX = event.clientX;
+  initialY = event.clientY;
+
+  // 获取拖动元素的当前位置
+  var rect = dragElementico.getBoundingClientRect();
+  offsetX = initialX - rect.left;
+  offsetY = initialY - rect.top;
+
+  // 添加鼠标移动和鼠标释放事件监听器
+  document.addEventListener("mousemove", drag);
+  document.addEventListener("mouseup", dragEnd);
+}
+
+// 鼠标移动时的事件处理函数
+function drag(event) {
+  // 计算拖动元素的新位置
+  var newX = event.clientX - offsetX;
+  var newY = event.clientY - offsetY;
+
+  // 更新拖动元素的位置
+  dragElement.style.left = newX + "px";
+  dragElement.style.top = newY + "px";
+}
+
+// 鼠标释放时的事件处理函数
+function dragEnd(event) {
+  // 移除鼠标移动和鼠标释放事件监听器
+  document.removeEventListener("mousemove", drag);
+  document.removeEventListener("mouseup", dragEnd);
+}
+
+// 添加鼠标按下事件监听器
+dragElementico.addEventListener("mousedown", dragStart);
+
+
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     showSettings(false)
@@ -54,11 +154,25 @@ line.addEventListener("paste", (e) => {
   let paste = clipboardData.getData("text/plain")
     .toString()
     .replaceAll("\r\n", "\n")
+	  let line = document.querySelector("#line");
   line.focus()
   document.execCommand("insertText", false, paste)
 }, { passive: false })
 
+function resend() {
+const box = document.getElementById("box");
+const userElements = box.getElementsByClassName("user");
+const lastUserElement = userElements[userElements.length - 1];
+const content = lastUserElement.textContent;
+ document.getElementById("line").innerText=content;
+//onSend();
+//console.log(content); // 输出: "最后一个user"
+}
+
 function onSend() {
+  //var value = (line.value || line.innerText).trim()//org
+  var line = document.getElementById("line");
+
   var value = (line.value || line.innerText).trim()
 
   if (!value) return
@@ -71,19 +185,49 @@ function onSend() {
 }
 
 function addItem(type, content) {
-  let request = document.createElement("div")
+  let request = document.createElement("div")  
+  let line = document.querySelector("#line");
+  var box = document.getElementById("box");
   request.className = type
-  request.innerText = content
+  //判断box儿子数
+ 
+var childDivs = box.querySelectorAll("div");
+var count = childDivs.length;
+var fixtype = type;
+if(fixtype==''||isNaN(fixtype)) fixtype='assistant';
+  request.setAttribute("id", ''+fixtype+count);//flag id
+   if(typeof marked === 'undefined'){
+    setTimeout(null, 100); // 延迟100毫秒后再次尝试执行a1()函数
+    return;
+  }
+ marked.setOptions({
+    highlight: function (code) {    //这个code后还有2个参数lang,callback
+    return hljs.highlightAuto(code).value;
+    }
+});
+if(ondebug)
+	console.log('type:'+type+" content:"+content);
+if(type=='assistant'||type ==''||isNaN(type)){
+  request.innerHTML  = marked.parse(content)
+}else{
+  request.innerText  = content;
+}
   box.appendChild(request)
 
   window.scrollTo({
     top: document.body.scrollHeight, behavior: "auto",
   })
+
+ 
+box.scrollTop = box.scrollHeight; // 设置滚动条位置为内容高度
   line.focus()
 
   return request
 }
-
+function showdomain(){
+	if(apiKeyInput.value=='327')
+		domainInput.style.display = '';
+}
 function postLine(line) {
   saveConv({ role: "user", content: line })
   let reqMsgs = []
@@ -113,7 +257,7 @@ function chat(reqMsgs) {
     if(config.domain==""||config.domain=="https://api.openai.com")
  	config.domain=defchaturl;
 var apiurl ="/v1/chat/completions";
-if(config.domain==defchaturl)
+if(config.domain==defchaturl||config.domain.indexOf('918')!=-1)
 	apiurl = defchaturlendpoint;
 
   send(`${config.domain}${apiurl}`, {
@@ -160,7 +304,23 @@ function onSuccessed(assistantElem) {
   if (config.tts) {
     textToSpeech(msg)
   }
+
+  
 }
+function sendover(){
+	var box = document.getElementById("box");
+  //判断box儿子数 
+var childDivs = box.querySelectorAll("div");
+var count = childDivs.length-1;
+var assistantdiv = document.getElementById("assistant"+count);
+if(ondebug) console.log('childDivs.length:'+count); 
+//assistantdiv.remove();
+var orgtxt = assistantdiv.innerText;
+
+assistantdiv.innerHTML = marked.parse(orgtxt);
+//addItem('assistant',orgtxt);
+}
+ 
 function send(reqUrl, body, onMessage, scussionCall) {
   loader.hidden = false
   let onError = (data) => {
@@ -195,6 +355,7 @@ function send(reqUrl, body, onMessage, scussionCall) {
       if (e.data == "[DONE]") {
         loader.hidden = true
         scussionCall()
+		sendover();
       } else {
         try {
           onMessage(JSON.parse(e.data))
@@ -232,7 +393,13 @@ function send(reqUrl, body, onMessage, scussionCall) {
 }
 
 function reset() {
-  box.innerHTML = ''
+
+  var box = document.getElementById("box");
+var children = box.querySelectorAll("*");
+
+for (var i = 0; i < children.length; i++) {
+  children[i].remove();
+}
   convId = uuidv4();
  
  if (config.hasOwnProperty('content'))  {
@@ -247,9 +414,24 @@ function reset() {
 messages = [config.firstPrompt]
 }
 const convKey = "conversations_"
+var cansave = true;
+function isChecked(checkbox) {
+   
+  cansave=checkbox.checked;
+}
 function saveConv(message) {
   messages.push(message)
+  if(cansave){
+	  messages = messages.filter(function(message) {
+    return message.role !== "system";
+});
   localStorage.setItem(`${convKey}${convId}`, JSON.stringify(messages))
+  	  document.getElementById("reset2").value = String.fromCharCode(0x24C8);
+  }else{
+	  document.getElementById("reset2").value = String.fromCharCode(0x2694);
+
+
+  }
 }
 
 function switchConv(key) {
@@ -380,7 +562,9 @@ function saveSettings() {
   config.multi = multiConvInput.checked
   config.tts = ttsInput.checked
   config.onlyWhisper = whisperInput.checked
+  try{
   box.firstChild.innerHTML = config.firstPrompt.content
+  }catch{}
   localStorage.setItem("conversation_config", JSON.stringify(config))
   showSettings(false)
   addItem('system', 'Update successed')
@@ -562,6 +746,7 @@ const _speechToText = () => {
 }
 
 function _speechToText1() {
+	
   loader.hidden = false
   // 获取音频流
   navigator.mediaDevices.getUserMedia({ audio: true })
@@ -647,6 +832,7 @@ const getRecordFile = (chunks, mimeType) => {
 }
 
 const speechToText = () => {
+	return;
   loader.hidden = false
   // 获取音频流
   navigator.mediaDevices.getUserMedia({ audio: true })
